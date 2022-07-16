@@ -1,15 +1,40 @@
-<h1>Tasks</h1>
-<% @tasks.each do |task| %>
-<ul>
-  <li>
-    <%= task.completed || "false" %>
-    <%= link_to task.title,
-        task_path(task.id)
-    %>
-  </li>
-</ul>
-<% end %>
+<h1 class="mb-5">Tasks</h1>
+<div class="container text-center">
+  <ul class="list-unstyled d-flex justify-content-between">
+    <% @tasks.each do |task| %>
+      <li class="row">
+        <%# Task Title %>
+        <%= link_to task.title,
+            task_path(task.id),
+            class: "p-3 fs-2"
+        %>
 
-<%= link_to "Create New Task",
-    new_task_path
-    %>
+        <div class="d-flex justify-content-center">
+          <%# Complete Icon %>
+          <% if task.completed %>
+            <i class="fa-solid fa-check p-3 text-success"></i>
+          <% else %>
+            <i class="fa-solid fa-xmark p-3 text-danger"></i>
+          <% end %>
+
+          <%# Delete Button %>
+          <%=
+            link_to task_path(task),
+            data:
+              {turbo_method: :delete, turbo_confirm: "Are you sure?"},
+            class: "trash-icon" do
+          %>
+            <i class="fa-solid fa-trash-can p-3"></i>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="container text-center">
+  <%= link_to "Create New Task",
+      new_task_path,
+      class: "btn btn-primary"
+      %>
+</div>
