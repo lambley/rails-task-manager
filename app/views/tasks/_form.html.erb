@@ -3,7 +3,7 @@
   <%= f.text_field :title %>
   <%= f.label :details %>
   <%= f.text_field :details %>
-  <% if task.id %>
+  <% unless task.new_record? %>
     <%= f.label :completed %>
     <%= f.check_box :completed %>
   <% end %>
